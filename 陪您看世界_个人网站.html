@@ -1,0 +1,776 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>陪您看世界｜慢行小团旅行设计</title>
+  <style>
+    :root {
+      --ink: #20262d;
+      --muted: #5d6874;
+      --paper: #f6f2ea;
+      --panel: #ffffff;
+      --line: #ddd4c6;
+      --cedar: #2f5f4a;
+      --river: #2c7280;
+      --vermilion: #b3432c;
+      --gold: #a97e25;
+      --night: #202833;
+      --mist: #e8eef0;
+      --shadow: 0 18px 42px rgba(30, 37, 45, .13);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif;
+      line-height: 1.72;
+    }
+
+    a { color: inherit; }
+
+    .hero {
+      min-height: 92vh;
+      display: grid;
+      align-items: end;
+      color: #fff;
+      background:
+        linear-gradient(180deg, rgba(12, 18, 24, .16), rgba(12, 18, 24, .88)),
+        url("routebook_assets/kyoto_higashiyama.jpg");
+      background-size: cover;
+      background-position: center;
+      padding: 28px 18px 44px;
+    }
+
+    .wrap {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+    }
+
+    .brand-row {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      padding: 16px 18px;
+    }
+
+    .brand-inner {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      color: #fff;
+    }
+
+    .brand {
+      font-weight: 700;
+      letter-spacing: 0;
+      font-size: 18px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding-bottom: 2px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,.32);
+      background: rgba(255,255,255,.12);
+      border-radius: 999px;
+      padding: 7px 11px;
+      font-size: 13px;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-content {
+      max-width: 860px;
+      padding-top: 110px;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      font-size: 14px;
+      color: rgba(255,255,255,.86);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(38px, 8vw, 82px);
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      margin: 18px 0 0;
+      color: rgba(255,255,255,.93);
+      font-size: 18px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      border: 1px solid rgba(255,255,255,.42);
+    }
+
+    .btn-primary {
+      background: #fff;
+      color: var(--night);
+    }
+
+    .btn-ghost {
+      color: #fff;
+      background: rgba(255,255,255,.12);
+      backdrop-filter: blur(8px);
+    }
+
+    main { padding: 34px 18px 72px; }
+    section { margin: 44px 0; }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: clamp(26px, 4vw, 42px);
+      line-height: 1.22;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+      line-height: 1.32;
+      letter-spacing: 0;
+    }
+
+    p { margin: 0 0 12px; }
+
+    .lead {
+      max-width: 850px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .panel, .route-card, .place-card, .principle-card, .contact-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      padding: 24px;
+    }
+
+    .panel p {
+      color: #394754;
+      font-size: 17px;
+    }
+
+    .signature {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .signature div {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: #fbfaf6;
+    }
+
+    .signature b {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--cedar);
+    }
+
+    .photo-stack {
+      display: grid;
+      gap: 12px;
+    }
+
+    .photo-stack img,
+    .place-card img,
+    .route-card img,
+    .contact-card .image img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: var(--line);
+    }
+
+    .photo-main {
+      min-height: 320px;
+      aspect-ratio: 5 / 4;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .photo-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .photo-row div {
+      aspect-ratio: 4 / 3;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .principles {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .bio-card {
+      display: grid;
+      grid-template-columns: .72fr 1.28fr;
+      gap: 0;
+      margin-top: 18px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .bio-aside {
+      padding: 22px;
+      color: #fff;
+      background:
+        linear-gradient(180deg, rgba(32, 40, 51, .2), rgba(32, 40, 51, .88)),
+        url("routebook_assets/takayama_oldtown.jpg");
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      min-height: 360px;
+    }
+
+    .bio-aside b {
+      display: block;
+      font-size: 24px;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .bio-aside span {
+      color: rgba(255,255,255,.86);
+    }
+
+    .bio-content {
+      padding: 24px;
+    }
+
+    .bio-content p {
+      color: #394754;
+      font-size: 16px;
+    }
+
+    .bio-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 16px 0 18px;
+    }
+
+    .bio-tags span {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      color: #4b5661;
+      background: #fbfaf6;
+      font-size: 13px;
+    }
+
+    .principle-card {
+      padding: 16px;
+      min-height: 150px;
+    }
+
+    .principle-card b {
+      display: block;
+      color: var(--cedar);
+      margin-bottom: 7px;
+    }
+
+    .principle-card span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .route-card {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+    }
+
+    .route-card .cover {
+      min-height: 420px;
+    }
+
+    .route-content {
+      padding: 24px;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0 18px;
+    }
+
+    .badges span {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      color: #4b5661;
+      background: #fbfaf6;
+      font-size: 13px;
+    }
+
+    .path {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .path-step {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 10px;
+      align-items: start;
+      border-bottom: 1px solid rgba(221, 212, 198, .8);
+      padding-bottom: 10px;
+    }
+
+    .path-step:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .path-step b {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--river);
+      font-size: 13px;
+    }
+
+    .path-step strong { display: block; }
+    .path-step span {
+      display: block;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .places {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .place-card img {
+      aspect-ratio: 4 / 3;
+    }
+
+    .place-card div {
+      padding: 14px;
+    }
+
+    .place-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(9, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .day-tile {
+      min-height: 116px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+
+    .day-tile b {
+      display: block;
+      color: var(--vermilion);
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+
+    .day-tile span {
+      display: block;
+      color: var(--ink);
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .day-tile small {
+      display: block;
+      color: var(--muted);
+      margin-top: 5px;
+      line-height: 1.45;
+    }
+
+    .contact-card {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 0;
+      background: var(--night);
+      color: #fff;
+    }
+
+    .contact-card .text {
+      padding: 28px;
+    }
+
+    .contact-card p {
+      color: rgba(255,255,255,.82);
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .contact-list div {
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 8px;
+      padding: 12px;
+      background: rgba(255,255,255,.08);
+    }
+
+    .contact-card .image {
+      min-height: 320px;
+    }
+
+    footer {
+      padding-top: 22px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      font-size: 14px;
+    }
+
+    @media (max-width: 920px) {
+      .brand-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .intro-grid,
+      .route-card,
+      .bio-card,
+      .contact-card {
+        grid-template-columns: 1fr;
+      }
+
+      .principles,
+      .places {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .calendar {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .route-card .cover,
+      .bio-aside,
+      .contact-card .image {
+        min-height: 280px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero {
+        min-height: 86vh;
+        padding-bottom: 30px;
+      }
+
+      .hero-copy {
+        font-size: 16px;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+      }
+
+      .signature,
+      .principles,
+      .places,
+      .calendar,
+      .photo-row {
+        grid-template-columns: 1fr;
+      }
+
+      .panel,
+      .route-content,
+      .contact-card .text {
+        padding: 18px;
+      }
+
+      .photo-main {
+        min-height: 240px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero" id="top">
+    <div class="brand-row">
+      <div class="brand-inner">
+        <div class="brand">陪您看世界</div>
+        <nav class="nav" aria-label="网站导航">
+          <a href="#about">为什么选择我</a>
+          <a href="#route">精选路线</a>
+          <a href="#places">目的地灵感</a>
+          <a href="#contact">咨询方式</a>
+        </nav>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="hero-content">
+        <p class="eyebrow">慢行小团旅行设计｜适合家庭、朋友与中老年同行</p>
+        <h1>陪您看世界</h1>
+        <p class="hero-copy">不赶路，不堆景点。把好时间留给好地方，把交通、住宿、餐食和休息节奏提前想清楚，让第一次出发的人也能安心看见世界。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#route">查看日本路线</a>
+          <a class="btn btn-ghost" href="#contact">定制我的行程</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="about">
+      <h2>旅行不是把地图走满，而是把每一天过好</h2>
+      <p class="lead">我更擅长为第一次出国、家庭同行、健康中老年朋友设计低焦虑路线。景点要值得，交通要清楚，餐食要稳妥，休息要安排在身体真正需要的时候。</p>
+      <div class="intro-grid">
+        <div class="panel">
+          <p>一条好路线，应该让同行的人知道为什么这样走。为什么先到京都，为什么在金泽留夕阳，为什么温泉放在旅途第4晚和第7晚，为什么有些景点不去。这些取舍不是少玩，而是让旅行更舒服、更有记忆点。</p>
+          <p>我会把行程做成可以展示给同行人的路书，也会保留领队执行版：几点出发、坐什么车、在哪里休息、下雨怎么备选、当天体力怎么控制。</p>
+          <div class="signature">
+            <div><b>慢行节奏</b><span>每天一个核心亮点，避免连续高强度。</span></div>
+            <div><b>公共交通</b><span>站点、车次、换乘逻辑提前拆清楚。</span></div>
+            <div><b>适老友好</b><span>坡路、台阶、步数、休息点会提前评估。</span></div>
+            <div><b>有画面感</b><span>用清晨、傍晚、温泉和老街做记忆点。</span></div>
+          </div>
+        </div>
+        <div class="photo-stack" aria-label="旅行照片组合">
+          <div class="photo-main"><img src="routebook_assets/kenrokuen.jpg" alt="金泽兼六园庭园"></div>
+          <div class="photo-row">
+            <div><img src="routebook_assets/yamanaka_bridge.jpg" alt="山中温泉溪谷"></div>
+            <div><img src="routebook_assets/nagoya_osu.jpg" alt="名古屋大须商店街"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>关于我</h2>
+      <p class="lead">我希望旅行不是临时拼凑的打卡表，而是一段被认真设计过、同行人走起来安心、回想起来有画面的经历。</p>
+      <div class="bio-card">
+        <div class="bio-aside">
+          <b>懂规划，也懂旅途中的人</b>
+          <span>把信息整理能力、外语沟通能力和长期陪父母旅行的经验，放进每一次行程设计里。</span>
+        </div>
+        <div class="bio-content">
+          <div class="bio-tags">
+            <span>厦门大学毕业</span>
+            <span>互联网从业10年+</span>
+            <span>英语/日语沟通</span>
+            <span>亲子长辈同行经验</span>
+            <span>擅长性价比规划</span>
+          </div>
+          <p>你好，我是“陪您看世界”的行程设计者。厦门大学毕业后，我在互联网行业工作了 10 年以上，长期做信息整理、体验判断和需求拆解，也把这种习惯带进了旅行规划：路线是否顺，酒店位置是否合理，交通衔接是否轻松，餐食是否匹配当天体力，预算有没有更优解，我都会提前一层层想清楚。</p>
+          <p>我喜欢旅行，但不太喜欢人山人海式的打卡。相比“去了多少景点”，我更在意一次旅行能不能留下几个独特的记忆点：清晨人少时的一条老街，一家顺路又舒服的小店，一段不赶路的海边傍晚，一晚刚好安排在疲惫节点的温泉。</p>
+          <p>我去过日本、韩国、泰国、柬埔寨、新西兰等地，国家不算特别多，但我喜欢反复去、慢慢看。每次再去同一个地方，都会发现新的街区、新的饮食、新的历史细节，也更能理解当地文化真正有意思的地方。</p>
+          <p>我掌握英语和日语，对外沟通没有明显障碍。每年也会想办法抽时间陪爸妈旅行，所以很理解带长辈出门真正需要的不是把行程排满，而是让他们走得舒服、吃得安心、玩得明白。</p>
+          <p>我爱看书，尤其喜欢在出发前读和目的地相关的书。历史、文学、美学、饮食、城市故事，都会让一个地方从“景点”变成“可以理解的生活现场”。我也喜欢分享，会把这些有趣的信息，用同行人听得懂、也愿意听的方式讲出来。</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>适合谁</h2>
+      <div class="principles">
+        <article class="principle-card"><b>第一次去日本</b><span>需要有人把入境、交通、住宿区域和每天节奏提前想清楚。</span></article>
+        <article class="principle-card"><b>带父母出行</b><span>可以接受步行，但需要午休、少换乘、少临场决策。</span></article>
+        <article class="principle-card"><b>朋友小团</b><span>希望行程有审美、有内容，不只是购物和打卡。</span></article>
+        <article class="principle-card"><b>不想踩坑</b><span>酒店位置、餐厅选择、车站动线和景点顺序都提前核过。</span></article>
+      </div>
+    </section>
+
+    <section id="route">
+      <h2>精选路线</h2>
+      <p class="lead">每条路线都不是简单串景点，而是先想清楚“为什么这样走”：从哪里进入状态，在哪里放慢，哪一天留给温泉，哪一段做成真正记得住的体验。</p>
+
+      <article class="route-card">
+        <div class="cover"><img src="routebook_assets/kyoto_kiyomizu.jpg" alt="京都清水寺"></div>
+        <div class="route-content">
+          <h3>9天8晚｜京都・金泽・名古屋</h3>
+          <div class="badges">
+            <span>适合中老年同行</span>
+            <span>公共交通为主</span>
+            <span>两晚温泉体验</span>
+            <span>避开高强度爬山</span>
+          </div>
+          <p>这趟线路的重点不是多，而是每一天都有一个清楚的理由：什么时候早起，什么时候回酒店休息，什么时候泡汤，什么时候只看一场夕阳。</p>
+          <div class="path">
+            <div class="path-step"><b>01</b><div><strong>京都</strong><span>清晨东山、清水寺、建仁寺、伏见稻荷、三十三间堂。</span></div></div>
+            <div class="path-step"><b>02</b><div><strong>山中温泉</strong><span>京都之后安排温泉，让身体从城市步行里慢下来。</span></div></div>
+            <div class="path-step"><b>03</b><div><strong>金泽</strong><span>近江町市场、兼六园、金泽城、日本海晚霞。</span></div></div>
+            <div class="path-step"><b>04</b><div><strong>高山与下吕</strong><span>宫川朝市、飞驒家庭旅馆、下吕温泉收住后半程体力。</span></div></div>
+            <div class="path-step"><b>05</b><div><strong>名古屋</strong><span>大须二手店、鳗鱼饭、城市轻漫步和从容返程。</span></div></div>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="日本中部北陆9天8晚路书_客人版.html">打开完整路书</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="route-card">
+        <div class="cover"><img src="routebook_assets/west_sea/kobe_harbor.jpg" alt="神户港海路慢行"></div>
+        <div class="route-content">
+          <h3>9天8晚｜大阪・神户・门司港・下关・福冈</h3>
+          <div class="badges">
+            <span>神户上船</span>
+            <span>濑户内海夜航</span>
+            <span>有马/别府温泉</span>
+            <span>关门海峡历史线</span>
+          </div>
+          <p>这条线的核心不是赶到九州，而是把转场做成体验：从神户六甲岛乘夜船穿过濑户内海，清晨抵达新门司，再从门司港 Retro、下关和关门海峡进入九州。</p>
+          <div class="path">
+            <div class="path-step"><b>01</b><div><strong>大阪</strong><span>大阪城、道顿堀、梅田夜景，作为关西热闹开场。</span></div></div>
+            <div class="path-step"><b>02</b><div><strong>神户与有马</strong><span>港町散步后住进有马温泉，第一晚把节奏慢下来。</span></div></div>
+            <div class="path-step"><b>03</b><div><strong>夜船到新门司</strong><span>神户上船，船上住一晚，第二天从海路抵达九州。</span></div></div>
+            <div class="path-step"><b>04</b><div><strong>门司港与下关</strong><span>门司港 Retro、唐户市场、春帆楼与日清讲和纪念馆。</span></div></div>
+            <div class="path-step"><b>05</b><div><strong>别府与福冈</strong><span>九州温泉放松，再用福冈美食购物从容收尾。</span></div></div>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="关西九州海路慢行路书_大阪神户门司港下关福冈.html">打开完整路书</a>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section>
+      <h2>中部北陆9天怎么走</h2>
+      <div class="calendar">
+        <div class="day-tile"><b>Day 1</b><span>抵达京都</span><small>不急着游玩，先入住补给。</small></div>
+        <div class="day-tile"><b>Day 2</b><span>清晨东山</span><small>清水寺、建仁寺、祇园、鸭川。</small></div>
+        <div class="day-tile"><b>Day 3</b><span>京都寺社</span><small>伏见稻荷、东福寺、三十三间堂。</small></div>
+        <div class="day-tile"><b>Day 4</b><span>山中温泉</span><small>京都轻漫步后转入温泉。</small></div>
+        <div class="day-tile"><b>Day 5</b><span>金泽</span><small>近江町市场与日本海晚霞。</small></div>
+        <div class="day-tile"><b>Day 6</b><span>兼六园</span><small>金泽城后前往飞驒高山。</small></div>
+        <div class="day-tile"><b>Day 7</b><span>高山朝市</span><small>宫川朝市后去下吕温泉。</small></div>
+        <div class="day-tile"><b>Day 8</b><span>名古屋采购</span><small>大须二手店与鳗鱼饭。</small></div>
+        <div class="day-tile"><b>Day 9</b><span>从容返程</span><small>城市轻走，下午去机场。</small></div>
+      </div>
+    </section>
+
+    <section id="places">
+      <h2>目的地灵感</h2>
+      <p class="lead">每个地方都不是孤立景点，而是承担一种旅行情绪：古都、溪谷、庭园、港口、老街、名汤和城市购物。</p>
+      <div class="places">
+        <article class="place-card">
+          <img src="routebook_assets/fushimi.jpg" alt="伏见稻荷千本鸟居">
+          <div><h3>京都</h3><p>第一次去日本，京都适合做第一站。它能把日本的寺院、街巷、神社和审美讲得最清楚。</p></div>
+        </article>
+        <article class="place-card">
+          <img src="routebook_assets/yamanaka_onsen.jpg" alt="山中温泉">
+          <div><h3>山中温泉</h3><p>不是为了多住一晚温泉，而是在第4晚给身体一次真正的恢复。</p></div>
+        </article>
+        <article class="place-card">
+          <img src="routebook_assets/kanazawa_port.jpg" alt="金泽港">
+          <div><h3>金泽</h3><p>兼六园、近江町市场、日本海天色，让北陆不只是过路点。</p></div>
+        </article>
+        <article class="place-card">
+          <img src="routebook_assets/takayama_oldtown.jpg" alt="飞驒高山古街">
+          <div><h3>飞驒高山</h3><p>古街和朝市让旅行进入地方生活，家庭旅馆是这段的温度。</p></div>
+        </article>
+        <article class="place-card">
+          <img src="routebook_assets/gero_onsen.jpg" alt="下吕温泉">
+          <div><h3>下吕温泉</h3><p>后半程不继续加景点，用名汤把疲劳收回来。</p></div>
+        </article>
+        <article class="place-card">
+          <img src="routebook_assets/nagoya_endoji.jpg" alt="名古屋圆顿寺商店街">
+          <div><h3>名古屋</h3><p>采购、二手店、鳗鱼饭和机场交通，让旅程收尾轻松实用。</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="contact-card">
+        <div class="text">
+          <h2>想把一次出行做得更稳、更有记忆点</h2>
+          <p>可以从人数、年龄、预算、出发城市、想看的内容和不能接受的强度开始。我会先帮你判断路线是否顺，再细化酒店、交通、餐食和每日节奏。</p>
+          <div class="contact-list">
+            <div><strong>服务方向</strong><br>日本自由行路线设计、小团路书、亲友团领队执行计划</div>
+            <div><strong>适合人数</strong><br>2-8人家庭/朋友小团，尤其适合带父母或中老年朋友同行</div>
+            <div><strong>联系方式</strong><br>微信：wl_elmer<br>电话：<a href="tel:18098460990">18098460990</a></div>
+          </div>
+        </div>
+        <div class="image"><img src="routebook_assets/kyoto_station.jpg" alt="京都站"></div>
+      </div>
+    </section>
+
+    <footer>
+      <p>陪您看世界｜慢行小团旅行设计。页面图片为本地实景照片，正式公开使用前建议逐张确认授权或替换为自有图片。</p>
+    </footer>
+  </main>
+</body>
+</html>

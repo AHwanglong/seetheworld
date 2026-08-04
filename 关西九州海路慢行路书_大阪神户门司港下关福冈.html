@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>关西九州海路慢行路书｜大阪・神户・门司港・下关・福冈</title>
+  <style>
+    :root {
+      --ink: #20262d;
+      --muted: #5d6874;
+      --paper: #f5f1e8;
+      --panel: #fff;
+      --line: #ddd4c6;
+      --sea: #2c7280;
+      --cedar: #2f5f4a;
+      --red: #b3432c;
+      --gold: #a97e25;
+      --night: #202833;
+      --shadow: 0 16px 36px rgba(30, 37, 45, .12);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif;
+      line-height: 1.7;
+    }
+
+    a { color: var(--sea); }
+
+    .hero {
+      min-height: 88vh;
+      display: grid;
+      align-items: end;
+      color: #fff;
+      padding: 34px 18px;
+      background:
+        linear-gradient(180deg, rgba(12, 18, 24, .12), rgba(12, 18, 24, .88)),
+        url("routebook_assets/west_sea/kobe_harbor.jpg");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .wrap {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: rgba(255,255,255,.9);
+      font-size: 14px;
+    }
+
+    h1 {
+      max-width: 920px;
+      margin: 0;
+      font-size: clamp(34px, 7vw, 72px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .hero p {
+      max-width: 760px;
+      margin: 18px 0 0;
+      color: rgba(255,255,255,.92);
+      font-size: 18px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    .meta span {
+      border: 1px solid rgba(255,255,255,.32);
+      background: rgba(255,255,255,.12);
+      backdrop-filter: blur(8px);
+      border-radius: 999px;
+      padding: 7px 11px;
+      font-size: 14px;
+    }
+
+    .topnav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(245, 241, 232, .94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 10px 18px;
+    }
+
+    .nav-inner a {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: #35424d;
+      padding: 7px 10px;
+      text-decoration: none;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    main { padding: 32px 18px 72px; }
+    section { margin: 40px 0; }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: clamp(26px, 4vw, 40px);
+      line-height: 1.24;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+      line-height: 1.3;
+    }
+
+    p { margin: 0 0 12px; }
+
+    .lead {
+      max-width: 860px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .story {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .panel, .map-card, .photo-card, .day-card, .note-card, .table-wrap {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel { padding: 24px; }
+    .panel p { color: #394754; font-size: 17px; }
+
+    .highlight {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-left: 4px solid var(--gold);
+      background: #fff7df;
+      color: #554323;
+      font-weight: 700;
+    }
+
+    .map-card {
+      padding: 18px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.92)),
+        linear-gradient(135deg, rgba(44,114,128,.2), rgba(169,126,37,.16));
+    }
+
+    .route-step {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(221, 212, 198, .78);
+    }
+
+    .route-step:last-child { border-bottom: 0; }
+
+    .route-step b {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--sea);
+      font-size: 13px;
+    }
+
+    .route-step strong { display: block; }
+    .route-step span { display: block; color: var(--muted); font-size: 14px; }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .photo-card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      background: var(--line);
+    }
+
+    .photo-card div { padding: 12px 13px 14px; }
+    .photo-card strong { display: block; }
+    .photo-card span { color: var(--muted); font-size: 14px; }
+
+    .principles {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .note-card {
+      padding: 16px;
+      min-height: 132px;
+    }
+
+    .note-card b {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--cedar);
+    }
+
+    .note-card span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .day-card { margin: 22px 0; }
+
+    .day-hero {
+      display: grid;
+      grid-template-columns: .88fr 1.12fr;
+      min-height: 330px;
+    }
+
+    .day-hero img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 330px;
+      object-fit: cover;
+      background: var(--line);
+    }
+
+    .day-title {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: #fff;
+    }
+
+    .day-kicker {
+      margin-bottom: 8px;
+      color: var(--red);
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .day-title p { color: var(--muted); }
+
+    .day-body {
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 18px;
+      padding: 20px;
+      border-top: 1px solid var(--line);
+    }
+
+    .timeline {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .timeline li {
+      display: grid;
+      grid-template-columns: 74px 1fr;
+      gap: 12px;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(221, 212, 198, .75);
+    }
+
+    .timeline li:last-child { border-bottom: 0; }
+    .timeline time { color: var(--sea); font-weight: 700; }
+    .timeline span { color: #3f4b56; }
+
+    .detail-list {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .detail-list li { margin: 8px 0; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+    }
+
+    th, td {
+      padding: 12px 13px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f8f5ef;
+      color: #35424d;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    footer {
+      margin-top: 42px;
+      padding-top: 22px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .story,
+      .day-hero,
+      .day-body {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery,
+      .principles {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero { min-height: 82vh; }
+      .hero p { font-size: 16px; }
+      .panel, .day-title, .day-body { padding: 18px; }
+      .gallery, .principles { grid-template-columns: 1fr; }
+      .timeline li { grid-template-columns: 64px 1fr; }
+      .day-hero img { min-height: 250px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">9天8晚｜关西到九州的海路慢行</p>
+      <h1>从大阪出发，坐夜船穿过濑户内海</h1>
+      <p>大阪、神户、有马温泉、门司港、下关、别府温泉、福冈。它不是一条普通城市串联线，而是用一晚海上夜航，把关西与九州自然接起来。</p>
+      <div class="meta">
+        <span>神户六甲岛上船</span>
+        <span>阪九 Ferry 夜航</span>
+        <span>1-2晚温泉体验</span>
+        <span>适合健康中老年同行</span>
+        <span>少爬山，重体验</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="topnav" aria-label="行程导航">
+    <div class="nav-inner">
+      <a href="#why">为什么这样走</a>
+      <a href="#highlights">视觉亮点</a>
+      <a href="#days">每日安排</a>
+      <a href="#budget">费用参考</a>
+      <a href="#stayflow">住宿节奏</a>
+      <a href="#sources">资料来源</a>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <section id="why">
+      <h2>这条线的用心，在“从海上进入九州”</h2>
+      <div class="story">
+        <div class="panel">
+          <p>如果只是大阪到福冈，坐新干线当然更快。但这条路线的价值，不在速度，而在体验：先用大阪打开关西的热闹，再到神户看港町和西洋风情，接着在有马泡一晚名汤，让身体先慢下来。</p>
+          <p>真正的转折点，是从神户六甲岛上船。夜里穿过濑户内海，第二天清晨抵达新门司港，再从门司港 Retro、关门海峡和下关进入九州。这种“从海上抵达”的记忆点，很难被普通铁路转场替代。</p>
+          <p>后半程安排别府或由布院温泉，再用福冈美食和购物收尾。整条线有城市、有港口、有温泉、有历史，也有不赶路的海边时间。</p>
+          <div class="highlight">适合想看日本另一面的人：不只看京都东京，也看港口、海峡、夜船、温泉和地方历史。</div>
+        </div>
+        <div class="map-card" aria-label="路线概览">
+          <div class="route-step"><b>01</b><div><strong>大阪</strong><span>城市开场，大阪城、道顿堀、梅田夜景</span></div></div>
+          <div class="route-step"><b>02</b><div><strong>神户与有马</strong><span>港町散步，进入第一晚温泉</span></div></div>
+          <div class="route-step"><b>03</b><div><strong>神户六甲岛夜船</strong><span>阪九 Ferry 前往新门司港</span></div></div>
+          <div class="route-step"><b>04</b><div><strong>门司港与下关</strong><span>关门海峡、唐户市场、马关条约签署地</span></div></div>
+          <div class="route-step"><b>05</b><div><strong>别府/由布院</strong><span>第二晚温泉，接住旅途后半段体力</span></div></div>
+          <div class="route-step"><b>06</b><div><strong>福冈</strong><span>太宰府、大濠公园、博多美食、返程</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="highlights">
+      <h2>会让客人记住的画面</h2>
+      <p class="lead">这条线不靠景点数量取胜，而是靠几个很清楚的记忆点：神户港的傍晚、船上的一夜、门司港的复古建筑、下关的历史停顿和温泉地的放松。</p>
+      <div class="gallery">
+        <article class="photo-card"><img src="routebook_assets/west_sea/osaka_castle.jpg" alt="大阪城"><div><strong>大阪开场</strong><span>现代商业、历史城郭和热闹街区，适合作为进入关西的第一站。</span></div></article>
+        <article class="photo-card"><img src="routebook_assets/west_sea/kobe_harbor.jpg" alt="神户港"><div><strong>神户港町</strong><span>旧居留地、北野、海港夜景，让转场前多一层城市气质。</span></div></article>
+        <article class="photo-card"><img src="routebook_assets/west_sea/arima_onsen.jpg" alt="有马温泉"><div><strong>有马名汤</strong><span>第一晚温泉放在神户之后，交通顺，也能提前恢复体力。</span></div></article>
+        <article class="photo-card"><img src="routebook_assets/west_sea/mojiko_retro.jpg" alt="门司港 Retro"><div><strong>门司港 Retro</strong><span>清晨从新门司港抵达，再走进海峡边的复古街区。</span></div></article>
+        <article class="photo-card"><img src="routebook_assets/west_sea/shimonoseki_kanmon.jpg" alt="关门海峡"><div><strong>关门海峡</strong><span>从本州到九州，只隔着一段水面，也隔着一段历史。</span></div></article>
+        <article class="photo-card"><img src="routebook_assets/west_sea/shunpanro.jpg" alt="春帆楼"><div><strong>历史现场</strong><span>春帆楼与日清讲和纪念馆，让下关不只是吃海鲜的地方。</span></div></article>
+        <article class="photo-card"><img src="routebook_assets/west_sea/beppu_onsen.jpg" alt="别府温泉"><div><strong>别府温泉</strong><span>第二晚温泉安排在九州段，给后半程一个从容停顿。</span></div></article>
+        <article class="photo-card"><img src="routebook_assets/west_sea/fukuoka_food.jpg" alt="福冈美食"><div><strong>福冈收尾</strong><span>博多拉面、水炊鸡、牛肠锅和购物，让返程前轻松落地。</span></div></article>
+      </div>
+    </section>
+
+    <section>
+      <h2>带中老年朋友的设计原则</h2>
+      <div class="principles">
+        <div class="note-card"><b>夜船不是省住宿</b><span>它是这条线的核心体验；建议选独立舱或双床舱，不选大通铺。</span></div>
+        <div class="note-card"><b>温泉放在关键节点</b><span>有马承接关西步行，别府/由布院承接海峡与九州转场。</span></div>
+        <div class="note-card"><b>下船日不排太满</b><span>新门司到门司港、唐户、下关要留缓冲，上午不要催得太紧。</span></div>
+        <div class="note-card"><b>避开高强度爬山</b><span>以城市漫步、港口、温泉、市场和历史点为主，台阶坡路可控。</span></div>
+      </div>
+    </section>
+
+    <section id="days">
+      <h2>每日安排</h2>
+
+      <article class="day-card">
+        <div class="day-hero">
+          <img src="routebook_assets/west_sea/osaka_castle.jpg" alt="大阪城">
+          <div class="day-title"><div class="day-kicker">Day 1｜抵达大阪</div><h3>先抵达，不急着把城市走完</h3><p>第一天以入境、入住、轻松晚餐为主。住梅田或难波，方便第二天城市游览，也方便后续去神户。</p></div>
+        </div>
+        <div class="day-body">
+          <ul class="timeline">
+            <li><time>下午/晚间</time><span>抵达关西机场，乘南海电铁或JR前往大阪市区。</span></li>
+            <li><time>入住后</time><span>酒店附近便利店补给，确认交通卡和第二天出发时间。</span></li>
+            <li><time>晚餐</time><span>道顿堀/梅田熟食简餐：大阪烧、乌冬、炸串熟食为主。</span></li>
+          </ul>
+          <aside><h3>建议住宿</h3><ul class="detail-list"><li>大阪梅田：交通更适合去神户。</li><li>难波：晚间热闹，餐饮选择更多。</li><li>预算参考：8,000-15,000日元/人/晚。</li></ul></aside>
+        </div>
+      </article>
+
+      <article class="day-card">
+        <div class="day-hero">
+          <img src="routebook_assets/west_sea/osaka_castle.jpg" alt="大阪城市游览">
+          <div class="day-title"><div class="day-kicker">Day 2｜大阪一日</div><h3>把大阪看成关西的热闹开场</h3><p>不追求环球影城这类高强度项目，改用大阪城、中之岛、梅田或道顿堀做轻松城市体验。</p></div>
+        </div>
+        <div class="day-body">
+          <ul class="timeline">
+            <li><time>09:00</time><span>大阪城公园，外观和公园散步为主，是否入天守阁按体力决定。</span></li>
+            <li><time>11:30</time><span>大阪城/森之宫一带午餐，熟食定食或乌冬。</span></li>
+            <li><time>13:30</time><span>中之岛散步，或回酒店休息。</span></li>
+            <li><time>16:30</time><span>梅田蓝天大厦/大阪站周边，傍晚看城市天色。</span></li>
+            <li><time>18:30</time><span>道顿堀晚餐，避开生食，选择大阪烧、炸串、拉面。</span></li>
+          </ul>
+          <aside><h3>体力控制</h3><ul class="detail-list"><li>全天步数可控在 10,000-13,000 步。</li><li>下午可安排酒店休息，晚上再出门。</li></ul></aside>
+        </div>
+      </article>
+
+      <article class="day-card">
+        <div class="day-hero">
+          <img src="routebook_assets/west_sea/arima_onsen.jpg" alt="有马温泉">
+          <div class="day-title"><div class="day-kicker">Day 3｜神户与有马温泉</div><h3>港町之后，住进关西名汤</h3><p>上午从大阪到神户，轻走北野异人馆、旧居留地和神户港；下午进有马温泉，一泊二食。</p></div>
+        </div>
+        <div class="day-body">
+          <ul class="timeline">
+            <li><time>09:00</time><span>大阪梅田 → 神户三宫，阪急/阪神/JR均可，约25-35分钟。</span></li>
+            <li><time>10:00</time><span>北野异人馆街区轻走；坡路较多，可只看精华段。</span></li>
+            <li><time>12:00</time><span>三宫/旧居留地午餐，神户牛可选熟食套餐，不追高价。</span></li>
+            <li><time>14:00</time><span>三宫 → 有马温泉，电车或巴士约35-50分钟。</span></li>
+            <li><time>15:30</time><span>入住温泉旅馆，泡汤休息。</span></li>
+            <li><time>18:00</time><span>旅馆晚餐。</span></li>
+          </ul>
+          <aside><h3>建议住宿</h3><ul class="detail-list"><li>有马温泉一泊二食，预算约18,000-35,000日元/人。</li><li>优先选离温泉街近、有电梯或接送的旅馆。</li></ul></aside>
+        </div>
+      </article>
+
+      <article class="day-card">
+        <div class="day-hero">
+          <img src="routebook_assets/west_sea/kobe_harbor.jpg" alt="神户港夜船">
+          <div class="day-title"><div class="day-kicker">Day 4｜神户上船，夜航新门司</div><h3>把转场变成整趟旅行的记忆点</h3><p>上午有马温泉街慢走，下午回神户，傍晚前往六甲岛码头，乘阪九 Ferry 去新门司港。</p></div>
+        </div>
+        <div class="day-body">
+          <ul class="timeline">
+            <li><time>09:00</time><span>有马温泉街散步，金之汤、银之汤外观，买碳酸煎饼。</span></li>
+            <li><time>11:30</time><span>退房后前往神户三宫，午餐和补给。</span></li>
+            <li><time>15:30</time><span>前往神户六甲岛 Ferry 码头，预留充足换乘时间。</span></li>
+            <li><time>18:30/20:00</time><span>阪九 Ferry 神户 → 新门司。平日多为18:30出发，周五周六多为20:00出发，具体按日期确认。</span></li>
+            <li><time>船上</time><span>建议订独立舱或双床舱，船上用餐、洗漱、休息。</span></li>
+          </ul>
+          <aside><h3>执行提醒</h3><ul class="detail-list"><li>不要选大通铺，睡眠质量优先。</li><li>船票和房型越早订越稳。</li><li>夜船费用按房型约8,000-22,000日元/人起。</li></ul></aside>
+        </div>
+      </article>
+
+      <article class="day-card">
+        <div class="day-hero">
+          <img src="routebook_assets/west_sea/mojiko_retro.jpg" alt="门司港 Retro">
+          <div class="day-title"><div class="day-kicker">Day 5｜门司港与下关</div><h3>从海峡进入历史现场</h3><p>清晨抵达新门司港，先去门司港 Retro，再坐关门连络船到唐户。午后参观赤间神宫、春帆楼与日清讲和纪念馆。</p></div>
+        </div>
+        <div class="day-body">
+          <ul class="timeline">
+            <li><time>07:00/08:30</time><span>抵达新门司港，乘接驳巴士前往门司/小仓方向。</span></li>
+            <li><time>09:30</time><span>门司港 Retro：旧门司三井俱乐部、蓝翼桥、海峡景观。</span></li>
+            <li><time>11:30</time><span>门司港码头乘关门连络船到唐户，船程约5分钟，成人约400日元。</span></li>
+            <li><time>12:00</time><span>唐户市场周边午餐，选择河豚唐扬、瓦片荞麦面、熟食定食，避开生食。</span></li>
+            <li><time>13:30</time><span>赤间神宫、春帆楼、日清讲和纪念馆。纪念馆建议预留30-45分钟。</span></li>
+            <li><time>16:00</time><span>关门海峡人道隧道或海边散步，之后入住下关/小仓。</span></li>
+          </ul>
+          <aside><h3>历史讲述点</h3><ul class="detail-list"><li>《马关条约》签署地在春帆楼一带。</li><li>这里适合做一段“旅行中的历史停顿”。</li><li>住宿可选下关或小仓，小仓转去别府更方便。</li></ul></aside>
+        </div>
+      </article>
+
+      <article class="day-card">
+        <div class="day-hero">
+          <img src="routebook_assets/west_sea/beppu_hell.jpg" alt="别府地狱">
+          <div class="day-title"><div class="day-kicker">Day 6｜前往别府/由布院温泉</div><h3>九州段的第二次放松</h3><p>从小仓或下关转往别府。下午看别府地狱或温泉街，晚上住温泉旅馆。如果想更安静，可改住由布院。</p></div>
+        </div>
+        <div class="day-body">
+          <ul class="timeline">
+            <li><time>09:30</time><span>小仓 → 别府，JR特急 Sonic 约1小时20分。</span></li>
+            <li><time>11:30</time><span>别府站寄存行李或酒店接送，午餐选熟食定食/地狱蒸。</span></li>
+            <li><time>13:30</time><span>海地狱、灶地狱等精华地狱巡礼，不必全走。</span></li>
+            <li><time>15:30</time><span>入住温泉旅馆，泡汤休息。</span></li>
+            <li><time>18:00</time><span>旅馆晚餐。</span></li>
+          </ul>
+          <aside><h3>别府 vs 由布院</h3><ul class="detail-list"><li>别府：交通顺、选择多、价格更好控。</li><li>由布院：更安静、更度假，但预算通常更高。</li><li>预算参考：18,000-35,000日元/人。</li></ul></aside>
+        </div>
+      </article>
+
+      <article class="day-card">
+        <div class="day-hero">
+          <img src="routebook_assets/west_sea/fukuoka_food.jpg" alt="福冈美食">
+          <div class="day-title"><div class="day-kicker">Day 7｜温泉地到福冈</div><h3>让旅行重新回到城市生活</h3><p>上午在温泉地轻走，午后到福冈。住博多或天神，晚上安排博多拉面、水炊鸡或牛肠锅。</p></div>
+        </div>
+        <div class="day-body">
+          <ul class="timeline">
+            <li><time>09:00</time><span>温泉地早餐后散步，不加远景点。</span></li>
+            <li><time>11:30</time><span>别府 → 博多，JR特急约2小时左右。</span></li>
+            <li><time>14:00</time><span>抵达福冈，入住或寄存行李。</span></li>
+            <li><time>16:00</time><span>博多站/天神轻逛。</span></li>
+            <li><time>18:30</time><span>晚餐：博多拉面、水炊鸡、牛肠锅，均以熟食为主。</span></li>
+          </ul>
+          <aside><h3>建议住宿</h3><ul class="detail-list"><li>博多：机场和JR最方便。</li><li>天神：购物餐饮更集中。</li><li>预算参考：8,000-16,000日元/人/晚。</li></ul></aside>
+        </div>
+      </article>
+
+      <article class="day-card">
+        <div class="day-hero">
+          <img src="routebook_assets/west_sea/fukuoka_food.jpg" alt="福冈城市游">
+          <div class="day-title"><div class="day-kicker">Day 8｜福冈一日</div><h3>轻松、好吃、好买的收尾城市</h3><p>福冈不适合排太满。上午太宰府，下午大濠公园或百道海滨，晚上回天神/博多吃饭购物。</p></div>
+        </div>
+        <div class="day-body">
+          <ul class="timeline">
+            <li><time>09:00</time><span>前往太宰府天满宫，参道轻走，吃梅枝饼。</span></li>
+            <li><time>12:30</time><span>返回市区午餐。</span></li>
+            <li><time>14:30</time><span>大濠公园散步，或改福冈塔/百道海滨。</span></li>
+            <li><time>17:30</time><span>天神地下街、博多站补购物。</span></li>
+            <li><time>19:00</time><span>熟食晚餐，不安排生食居酒屋。</span></li>
+          </ul>
+          <aside><h3>体力控制</h3><ul class="detail-list"><li>太宰府和大濠公园二选一也可以。</li><li>如果前几天累，下午直接购物休息。</li></ul></aside>
+        </div>
+      </article>
+
+      <article class="day-card">
+        <div class="day-hero">
+          <img src="routebook_assets/west_sea/fukuoka_food.jpg" alt="福冈返程">
+          <div class="day-title"><div class="day-kicker">Day 9｜福冈返程</div><h3>机场近，是福冈收尾的最大优势</h3><p>福冈机场离市区很近，最后一天不用赶。上午补购物，中午后去机场，预留退税、托运和安检时间。</p></div>
+        </div>
+        <div class="day-body">
+          <ul class="timeline">
+            <li><time>09:00</time><span>酒店退房寄存，博多站/天神补购物。</span></li>
+            <li><time>11:30</time><span>市区午餐。</span></li>
+            <li><time>13:00</time><span>地铁或出租车前往福冈机场。</span></li>
+            <li><time>下午</time><span>返程。</span></li>
+          </ul>
+          <aside><h3>返程优势</h3><ul class="detail-list"><li>博多到福冈机场地铁约5分钟。</li><li>比从大阪折返更轻松。</li></ul></aside>
+        </div>
+      </article>
+    </section>
+
+    <section id="budget">
+      <h2>费用参考</h2>
+      <p class="lead">以下为日本境内落地预算粗估，按普通舒适型安排。实际价格会随日期、房型、温泉旅馆和船舱等级波动。</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>项目</th><th>内容</th><th>参考预算/人</th></tr></thead>
+          <tbody>
+            <tr><td>住宿</td><td>大阪2晚、有马1晚、船上1晚、下关/小仓1晚、别府/由布院1晚、福冈2晚</td><td>90,000-150,000日元</td></tr>
+            <tr><td>交通</td><td>关西机场到大阪、大阪神户、有马、阪九 Ferry、新门司接驳、门司港/下关、别府、福冈市内与机场</td><td>35,000-55,000日元</td></tr>
+            <tr><td>餐饮</td><td>大阪熟食、神户午餐、船上餐、唐户熟食、温泉旅馆餐、福冈特色熟食</td><td>35,000-55,000日元</td></tr>
+            <tr><td>门票杂费</td><td>大阪城可选、地狱巡礼、寄存、连络船、城市交通补差等</td><td>8,000-15,000日元</td></tr>
+            <tr><td>合计</td><td>不含国际机票、签证保险、购物和服务费</td><td>168,000-275,000日元</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="stayflow">
+      <h2>9天8晚住宿节奏</h2>
+      <p class="lead">这版不再压缩天数。大阪给城市开场两晚，有马和别府各安排一晚温泉，中间用神户到新门司的夜船做核心体验，最后福冈两晚从容收尾。</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>夜数</th><th>住宿地</th><th>安排理由</th></tr></thead>
+          <tbody>
+            <tr><td>第1-2晚</td><td>大阪</td><td>抵达后不赶路，第二天完整看大阪，减少落地疲劳。</td></tr>
+            <tr><td>第3晚</td><td>有马温泉</td><td>神户之后顺路进入关西名汤，作为第一段休息节点。</td></tr>
+            <tr><td>第4晚</td><td>阪九 Ferry 船上</td><td>神户六甲岛上船，夜航濑户内海，把长距离转场变成体验。</td></tr>
+            <tr><td>第5晚</td><td>下关或小仓</td><td>门司港、唐户、春帆楼和关门海峡当天慢走，不急着继续赶路。</td></tr>
+            <tr><td>第6晚</td><td>别府或由布院温泉</td><td>九州段第二次温泉体验，承接下船和海峡游览后的体力消耗。</td></tr>
+            <tr><td>第7-8晚</td><td>福冈</td><td>美食、购物、太宰府和返程都更从容，机场交通压力低。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="sources">
+      <h2>资料来源与订前核对</h2>
+      <div class="table-wrap">
+        <table>
+          <tbody>
+            <tr><td>船班</td><td>阪九 Ferry 神户-新门司官方时刻与票价。订票前必须按具体日期核实。</td></tr>
+            <tr><td>海峡交通</td><td>关门汽船门司港-唐户连络船，船程和票价以官方当日信息为准。</td></tr>
+            <tr><td>历史点</td><td>下关日清讲和纪念馆、春帆楼、赤间神宫等公开资料。</td></tr>
+            <tr><td>图片</td><td>已下载为本地实景照片，保存在 routebook_assets/west_sea 文件夹；主要参考 Japan Guide 及官方观光图源。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>
+      <p>版本：关西九州海路慢行路书。建议出票、订房、订船舱前再次核对船班、接驳巴士、温泉旅馆接送、景点营业时间和天气条件。</p>
+    </footer>
+  </main>
+</body>
+</html>
