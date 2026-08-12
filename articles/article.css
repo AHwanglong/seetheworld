@@ -1,0 +1,423 @@
+:root {
+  --ink: #20262d;
+  --muted: #65707a;
+  --paper: #f5f2eb;
+  --panel: #ffffff;
+  --line: #ddd7cc;
+  --cedar: #2f5f4a;
+  --river: #2c7280;
+  --vermilion: #ad4934;
+  --night: #202833;
+  --shadow: 0 18px 48px rgba(28, 34, 40, .12);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif;
+  line-height: 1.8;
+}
+
+a { color: inherit; }
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.site-nav {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 2;
+  padding: 18px 22px;
+  color: #fff;
+}
+
+.site-nav-inner {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.brand {
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-links a {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 12px;
+  border: 1px solid rgba(255, 255, 255, .34);
+  border-radius: 999px;
+  background: rgba(15, 22, 28, .2);
+  color: #fff;
+  font-size: 13px;
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+}
+
+.story-hero {
+  min-height: 78vh;
+  display: grid;
+  align-items: end;
+  color: #fff;
+  background-image:
+    linear-gradient(180deg, rgba(10, 15, 20, .12), rgba(10, 15, 20, .84)),
+    var(--hero-image);
+  background-position: var(--hero-position, center);
+  background-size: cover;
+  padding: 124px 22px 58px;
+}
+
+.story-hero-inner {
+  width: min(980px, 100%);
+  margin: 0 auto;
+}
+
+.kicker {
+  margin: 0 0 14px;
+  color: rgba(255, 255, 255, .86);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.story-hero h1 {
+  max-width: 880px;
+  margin: 0;
+  font-family: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+  font-size: 64px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+.dek {
+  max-width: 760px;
+  margin: 20px 0 0;
+  color: rgba(255, 255, 255, .9);
+  font-size: 18px;
+}
+
+.story-shell {
+  width: min(920px, calc(100% - 36px));
+  margin: -24px auto 64px;
+  position: relative;
+  z-index: 1;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.story-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  padding: 22px 28px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.story-body {
+  width: min(700px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 58px 0 64px;
+  font-family: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+  font-size: 18px;
+  line-height: 2;
+}
+
+.story-body p {
+  margin: 0 0 1.45em;
+}
+
+.story-body .lead {
+  color: #27333a;
+  font-size: 21px;
+  line-height: 1.9;
+}
+
+.story-body .section-break {
+  margin-top: 3em;
+}
+
+.story-body .short {
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.pullquote {
+  margin: 2.6em 0;
+  padding: 4px 0 4px 24px;
+  border-left: 4px solid var(--vermilion);
+  color: #34424a;
+  font-size: 22px;
+  line-height: 1.7;
+}
+
+.story-body figure {
+  width: min(980px, calc(100vw - 36px));
+  margin: 3em 50%;
+  transform: translateX(-50%);
+}
+
+.story-body figure img {
+  width: 100%;
+  max-height: 640px;
+  object-fit: cover;
+  background: var(--line);
+}
+
+.story-body figcaption {
+  margin-top: 10px;
+  color: var(--muted);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.route-strip {
+  width: min(980px, calc(100vw - 36px));
+  margin: 2.8em 50%;
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border: 1px solid var(--line);
+  background: #fbfaf7;
+}
+
+.route-stop {
+  min-height: 118px;
+  padding: 18px;
+  border-right: 1px solid var(--line);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.route-stop:last-child { border-right: 0; }
+
+.route-stop b,
+.route-stop span {
+  display: block;
+}
+
+.route-stop b {
+  margin-bottom: 6px;
+  color: var(--cedar);
+  font-size: 15px;
+}
+
+.route-stop span {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.story-footer {
+  border-top: 1px solid var(--line);
+  padding: 28px;
+}
+
+.story-note {
+  margin: 0 0 20px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.story-nav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.story-nav a {
+  min-height: 92px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.story-nav small {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.story-nav strong {
+  margin-top: 3px;
+  line-height: 1.45;
+}
+
+.archive-page {
+  min-height: 100vh;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.archive-page .site-nav {
+  position: relative;
+  color: var(--ink);
+  background: var(--night);
+}
+
+.archive-hero {
+  min-height: 54vh;
+  display: grid;
+  align-items: end;
+  padding: 68px 22px 48px;
+  color: #fff;
+  background:
+    linear-gradient(180deg, rgba(10, 15, 20, .2), rgba(10, 15, 20, .82)),
+    url("../routebook_assets/kyoto_higashiyama.jpg") center 42% / cover;
+}
+
+.archive-hero > div,
+.archive-main {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+}
+
+.archive-hero h1 {
+  max-width: 780px;
+  margin: 0;
+  font-family: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+  font-size: 58px;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.archive-hero p {
+  max-width: 720px;
+  margin: 18px 0 0;
+  color: rgba(255, 255, 255, .88);
+  font-size: 17px;
+}
+
+.archive-main {
+  padding: 54px 22px 76px;
+}
+
+.archive-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.archive-card {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.archive-card > a {
+  display: block;
+  height: 100%;
+  text-decoration: none;
+}
+
+.archive-card img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--line);
+}
+
+.archive-card-content {
+  padding: 22px;
+}
+
+.archive-card-content small {
+  color: var(--vermilion);
+  font-weight: 700;
+}
+
+.archive-card h2 {
+  margin: 7px 0 10px;
+  font-family: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+  font-size: 28px;
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+
+.archive-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.archive-footer {
+  padding: 24px 22px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  text-align: center;
+  font-size: 13px;
+}
+
+@media (max-width: 760px) {
+  .site-nav { padding: 14px 16px; }
+
+  .site-nav-inner { align-items: flex-start; }
+
+  .nav-links { flex-wrap: wrap; justify-content: flex-end; }
+
+  .nav-links a { min-height: 36px; padding: 6px 9px; font-size: 12px; }
+
+  .story-hero { min-height: 72vh; padding: 112px 18px 42px; }
+
+  .story-hero h1 { font-size: 40px; }
+
+  .dek { font-size: 16px; }
+
+  .story-shell { width: calc(100% - 20px); margin-top: -14px; }
+
+  .story-meta { padding: 18px; }
+
+  .story-body { width: calc(100% - 36px); padding: 42px 0 48px; font-size: 17px; }
+
+  .story-body .lead,
+  .story-body .short { font-size: 19px; }
+
+  .pullquote { font-size: 20px; }
+
+  .route-strip { grid-template-columns: 1fr; }
+
+  .route-stop { min-height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
+
+  .route-stop:last-child { border-bottom: 0; }
+
+  .story-nav,
+  .archive-grid { grid-template-columns: 1fr; }
+
+  .archive-hero { min-height: 48vh; padding: 52px 18px 38px; }
+
+  .archive-hero h1 { font-size: 40px; }
+
+  .archive-main { padding: 36px 12px 56px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

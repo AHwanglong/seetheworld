@@ -426,6 +426,39 @@
       padding: 14px;
     }
 
+    .place-card > a {
+      display: block;
+      height: 100%;
+      text-decoration: none;
+    }
+
+    .place-card h3 {
+      margin-top: 5px;
+    }
+
+    .article-meta {
+      display: block;
+      color: var(--vermilion);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .section-action {
+      margin-top: 18px;
+    }
+
+    .section-action a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 10px 16px;
+      border: 1px solid var(--cedar);
+      border-radius: 8px;
+      color: var(--cedar);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
     .place-card p {
       color: var(--muted);
       font-size: 14px;
@@ -699,6 +732,28 @@
           </div>
         </div>
       </article>
+
+      <article class="route-card">
+        <div class="cover"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Seongsan%20Ilchulbong%2001.jpg?width=1600" alt="济州城山日出峰海岸"></div>
+        <div class="route-content">
+          <h3>9天8晚｜济州・庆州・首尔</h3>
+          <div class="badges">
+            <span>济州火山海岛</span>
+            <span>庆州韩屋住宿</span>
+            <span>首尔汉江轻野餐</span>
+            <span>适合带父母慢行</span>
+          </div>
+          <p>这条线把韩国做得更有体验感：从济州的火山海岸、海女文化、黑猪鲍鱼开始，到庆州住进韩屋古都，最后在首尔从景福宫、西村、广藏市场走到 The Hyundai Seoul 和汉江边。</p>
+          <div class="path">
+            <div class="path-step"><b>01</b><div><strong>济州</strong><span>城山火山海岸、海女文化、茶园花园、黑猪鲍鱼与可选海豚游艇。</span></div></div>
+            <div class="path-step"><b>02</b><div><strong>庆州</strong><span>住设施好的韩屋，傍晚走月精桥，第二天深看佛国寺和新罗文化。</span></div></div>
+            <div class="path-step"><b>03</b><div><strong>首尔</strong><span>景福宫、西村、广藏市场、现代商业空间和汉江轻野餐。</span></div></div>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="韩国济州庆州首尔9天8晚路书_客人版.html">查看路线样本</a>
+          </div>
+        </div>
+      </article>
     </section>
 
     <section>
@@ -718,34 +773,35 @@
     </section>
 
     <section id="articles">
-      <h2>旅行文章与目的地灵感</h2>
-      <p class="lead">我希望同行的人不只是“到此一游”，也能知道一个地方为什么值得看。文章会沉淀目的地背景、旅行前阅读、文化故事和路线设计思路。</p>
+      <h2>旅行札记</h2>
+      <p class="lead">路线告诉人如何抵达，文章记录抵达之后真正发生的事。这里有城市的背面、古道上的偶遇，也有一趟需要五套预案的山间转场。</p>
       <div class="places">
         <article class="place-card">
-          <img src="routebook_assets/fushimi.jpg" alt="伏见稻荷千本鸟居">
-          <div><h3>京都</h3><p>第一次去日本，京都适合做第一站。它能把日本的寺院、街巷、神社和审美讲得最清楚。</p></div>
+          <a href="articles/road-to-takayama.html">
+            <img src="routebook_assets/gero_onsen.jpg" alt="群山与飞驒川之间的下吕温泉">
+            <div><span class="article-meta">山间转场 · 约9分钟</span><h3>去高山的第五种方案</h3><p>五套交通预案与六分钟换乘，最后还需要一位司机没有关上的车门。</p></div>
+          </a>
         </article>
         <article class="place-card">
-          <img src="routebook_assets/yamanaka_onsen.jpg" alt="山中温泉">
-          <div><h3>山中温泉</h3><p>不是为了多住一晚温泉，而是在第4晚给身体一次真正的恢复。</p></div>
+          <a href="articles/magome-tsumago.html">
+            <img src="article_assets/magome-nakasendo.png" alt="马笼宿的中山道老街">
+            <div><span class="article-meta">木曾古道 · 约11分钟</span><h3>木曾路上，一面国旗与十四只猫</h3><p>一杯山中热茶、一只粉笔兔子和老人认真写下的名字。</p></div>
+          </a>
         </article>
         <article class="place-card">
-          <img src="routebook_assets/kanazawa_port.jpg" alt="金泽港">
-          <div><h3>金泽</h3><p>兼六园、近江町市场、日本海天色，让北陆不只是过路点。</p></div>
+          <a href="articles/nagoya.html">
+            <img src="routebook_assets/nagoya_endoji.jpg" alt="名古屋圆顿寺商店街">
+            <div><span class="article-meta">城市观察 · 约8分钟</span><h3>名古屋的背面</h3><p>夜里的垃圾、二手店与雨中涉水的人，让一座城市变得立体。</p></div>
+          </a>
         </article>
         <article class="place-card">
-          <img src="routebook_assets/takayama_oldtown.jpg" alt="飞驒高山古街">
-          <div><h3>飞驒高山</h3><p>古街和朝市让旅行进入地方生活，家庭旅馆是这段的温度。</p></div>
-        </article>
-        <article class="place-card">
-          <img src="routebook_assets/gero_onsen.jpg" alt="下吕温泉">
-          <div><h3>下吕温泉</h3><p>后半程不继续加景点，用名汤把疲劳收回来。</p></div>
-        </article>
-        <article class="place-card">
-          <img src="routebook_assets/nagoya_endoji.jpg" alt="名古屋圆顿寺商店街">
-          <div><h3>名古屋</h3><p>采购、二手店、鳗鱼饭和机场交通，让旅程收尾轻松实用。</p></div>
+          <a href="articles/kanazawa.html">
+            <img src="article_assets/kanazawa-hero.jpg" alt="深秋时节的金泽兼六园">
+            <div><span class="article-meta">北陆行记 · 约13分钟</span><h3>在失物与夕阳之间，看见一座城</h3><p>丢失的行李、海边的夕阳，以及兼六园的一把伞和一本登记册。</p></div>
+          </a>
         </article>
       </div>
+      <div class="section-action"><a href="articles/index.html">查看全部旅行札记</a></div>
     </section>
 
     <section id="about">
@@ -789,7 +845,7 @@
     </section>
 
     <footer>
-      <p>陪您看世界｜小团陪同带队。页面图片已替换为本地保存的公开授权实景图，来源记录见《图片来源与授权说明》。</p>
+      <p>陪您看世界｜小团陪同带队。页面图片使用本地保存或公开授权/官方来源实景图，具体来源以各路书页面说明和《图片来源与授权说明》为准。</p>
     </footer>
   </main>
 </body>
