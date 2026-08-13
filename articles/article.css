@@ -187,6 +187,15 @@ img {
   background: var(--line);
 }
 
+.story-body figure.portrait {
+  width: min(620px, calc(100vw - 36px));
+}
+
+.story-body figure.portrait img {
+  max-height: none;
+  object-fit: contain;
+}
+
 .story-body figcaption {
   margin-top: 10px;
   color: var(--muted);
