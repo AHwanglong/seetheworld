@@ -1,0 +1,135 @@
+<div id="roadbook-map" style="width:100%;height:720px;border-radius:24px;overflow:hidden;border:1px solid #d7e2d8;"></div>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  (function () {
+    const stops = [
+      { name: "长沙", day: "D1 出发 / D8 返回", note: "长沙南站取还车", lat: 28.146, lng: 113.065 },
+      { name: "张家界", day: "D1-D4", note: "森林公园 · 天门山", lat: 29.117, lng: 110.479 },
+      { name: "芙蓉镇", day: "D5", note: "古镇瀑布 · 夜景", lat: 28.621, lng: 109.945 },
+      { name: "德夯 / 茶峒", day: "D6-D7", note: "苗寨 · 矮寨大桥 · 边城", lat: 28.435, lng: 109.438 },
+      { name: "凤凰古城", day: "D7-D8", note: "沱江夜景 · 古城晨景", lat: 27.948, lng: 109.599 },
+      { name: "长沙", day: "返程", note: "长沙南站还车", lat: 28.146, lng: 113.065 }
+    ];
+
+    const route = stops.map((s) => [s.lat, s.lng]);
+    const map = L.map("roadbook-map", {
+      scrollWheelZoom: false,
+      zoomControl: true
+    });
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 18,
+      attribution: "&copy; OpenStreetMap contributors"
+    }).addTo(map);
+
+    const line = L.polyline(route, {
+      color: "#1f7a4d",
+      weight: 5,
+      opacity: 0.88,
+      lineJoin: "round"
+    }).addTo(map);
+
+    L.polyline(route, {
+      color: "#f2c94c",
+      weight: 9,
+      opacity: 0.35,
+      lineJoin: "round"
+    }).addTo(map).bringToBack();
+
+    const labels = [
+      "1 长沙",
+      "2 张家界",
+      "3 芙蓉镇",
+      "4 德夯/茶峒",
+      "5 凤凰古城",
+      "6 长沙"
+    ];
+
+    stops.forEach((stop, index) => {
+      const isStartEnd = index === 0 || index === stops.length - 1;
+      const marker = L.divIcon({
+        className: "roadbook-marker",
+        html: `<div style="
+          width:${isStartEnd ? 38 : 34}px;
+          height:${isStartEnd ? 38 : 34}px;
+          border-radius:50%;
+          background:${isStartEnd ? "#1f7a4d" : "#fffef8"};
+          color:${isStartEnd ? "#fff" : "#1f7a4d"};
+          border:4px solid ${isStartEnd ? "#f2c94c" : "#1f7a4d"};
+          box-shadow:0 8px 18px rgba(20,60,38,.22);
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          font:800 16px -apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;
+        ">${index + 1}</div>`,
+        iconSize: [44, 44],
+        iconAnchor: [22, 22]
+      });
+
+      L.marker([stop.lat, stop.lng], { icon: marker })
+        .addTo(map)
+        .bindPopup(`<strong>${labels[index]}</strong><br>${stop.day}<br>${stop.note}`);
+
+      L.tooltip({
+        permanent: true,
+        direction: index === 0 ? "right" : "top",
+        offset: [0, -18],
+        className: "roadbook-tooltip"
+      })
+        .setLatLng([stop.lat, stop.lng])
+        .setContent(`<strong>${labels[index]}</strong><br><span>${stop.day}</span>`)
+        .addTo(map);
+    });
+
+    const segmentLabels = [
+      { text: "约350公里 / 4小时", lat: 28.72, lng: 111.78 },
+      { text: "约105公里 / 1小时45分", lat: 28.86, lng: 110.18 },
+      { text: "约255公里 / 半日", lat: 28.54, lng: 109.68 },
+      { text: "约140公里 / 3小时", lat: 28.18, lng: 109.48 },
+      { text: "约400公里 / 5小时", lat: 28.03, lng: 111.50 }
+    ];
+
+    segmentLabels.forEach((item) => {
+      L.marker([item.lat, item.lng], {
+        icon: L.divIcon({
+          className: "segment-label",
+          html: `<span style="
+            display:inline-block;
+            white-space:nowrap;
+            background:#fff8df;
+            color:#2e6b48;
+            border:1px solid #dfc366;
+            border-radius:999px;
+            padding:5px 10px;
+            font:700 13px -apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;
+            box-shadow:0 4px 12px rgba(39,82,55,.15);
+          ">${item.text}</span>`
+        })
+      }).addTo(map);
+    });
+
+    map.fitBounds(line.getBounds(), { padding: [56, 56] });
+
+    const style = document.createElement("style");
+    style.textContent = `
+      .roadbook-tooltip {
+        background: rgba(255,254,248,.96);
+        color: #173f2a;
+        border: 1px solid #d8e7dc;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(20,60,38,.14);
+        padding: 7px 10px;
+        font-family: -apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;
+      }
+      .roadbook-tooltip strong { font-size: 15px; }
+      .roadbook-tooltip span { color:#af6b1f; font-size: 12px; font-weight:700; }
+      .roadbook-tooltip::before { display:none; }
+      .leaflet-popup-content {
+        font-family: -apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;
+        line-height: 1.6;
+      }
+    `;
+    document.head.appendChild(style);
+  })();
+</script>
